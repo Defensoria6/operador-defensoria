@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Defensoría Civil y Comercial 6</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Estilos para el login */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-form h2 {
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .login-form p {
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Estilos para la aplicación principal */
+        .app-container {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .iframe-container {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .content-iframe {
+            width: 100%;
+            height: calc(100vh - 80px);
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 0;
+            }
+
+            .navbar {
+                padding: 10px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Formulario de Login/Registro -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-form">
+            <h2>Sistema Defensoría Civil y Comercial 6</h2>
+            <h2>Operador</h2>
+            <p>Presione 'Ingresar' para continuar.</p>
+            <button class="btn" id="ingresarBtn" onclick="showAppAfterLogin()">Ingresar</button>
+        </div>
+    </div>
+
+    <!-- Aplicación Principal -->
+    <div id="appContainer" class="app-container">
+        <nav class="navbar">
+            <div style="display: flex; align-items: center;">
+                <div class="navbar-brand">Sistema Defensoría Civil y Comercial 6</div>
+            </div>
+            <div>
+                <button class="logout-btn" onclick="showLogin()">Cerrar</button>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <main class="content-area">
+                <div id="iframeContainer" class="iframe-container">
+                    <iframe id="contentIframe" class="content-iframe" src=""></iframe>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Funciones para la interfaz
+        function showAppAfterLogin() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'block';
+            loadPage('https://defensoria6.github.io/atencion-publico/', 'Atención al Público');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('ingresarBtn').focus();
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    showAppAfterLogin();
+                }
+            });
+        });
+
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('appContainer').style.display = 'none';
+            document.getElementById('contentIframe').src = '';
+        }
+
+        function loadPage(url, title) {
+            const iframe = document.getElementById('contentIframe');
+            iframe.src = url;
+        }
+    </script>
+</body>
+</html>
+
