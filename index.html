@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Defensoría Civil y Comercial 6</title>
+    <title>Sistema Operador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,237 +12,524 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-        }
-        
-        /* Definición del color Azul Oscuro para botones */
         :root {
-            --button-color: #1f4068; /* Azul Oscuro Uniforme */
-            --danger-color: #dc3545; /* Rojo de Advertencia */
-            --danger-hover-color: #c82333; /* Rojo más oscuro para hover */
-        }
+  --background: oklch(1.0000 0 0);
+  --foreground: oklch(0.1884 0.0128 248.5103);
+  --card: oklch(0.9784 0.0011 197.1387);
+  --card-foreground: oklch(0.1884 0.0128 248.5103);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0.1884 0.0128 248.5103);
+  --primary: oklch(0.6723 0.1606 244.9955);
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.1884 0.0128 248.5103);
+  --secondary-foreground: oklch(1.0000 0 0);
+  --muted: oklch(0.9222 0.0013 286.3737);
+  --muted-foreground: oklch(0.1884 0.0128 248.5103);
+  --accent: oklch(0.9392 0.0166 250.8453);
+  --accent-foreground: oklch(0.6723 0.1606 244.9955);
+  --destructive: oklch(0.6188 0.2376 25.7658);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.9317 0.0118 231.6594);
+  --input: oklch(0.9809 0.0025 228.7836);
+  --ring: oklch(0.6818 0.1584 243.3540);
+  --chart-1: oklch(0.6723 0.1606 244.9955);
+  --chart-2: oklch(0.6907 0.1554 160.3454);
+  --chart-3: oklch(0.8214 0.1600 82.5337);
+  --chart-4: oklch(0.7064 0.1822 151.7125);
+  --chart-5: oklch(0.5919 0.2186 10.5826);
+  --sidebar: oklch(0.9784 0.0011 197.1387);
+  --sidebar-foreground: oklch(0.1884 0.0128 248.5103);
+  --sidebar-primary: oklch(0.6723 0.1606 244.9955);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.9392 0.0166 250.8453);
+  --sidebar-accent-foreground: oklch(0.6723 0.1606 244.9955);
+  --sidebar-border: oklch(0.9271 0.0101 238.5177);
+  --sidebar-ring: oklch(0.6818 0.1584 243.3540);
+  --font-sans: Open Sans, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+  --radius: 1.3rem;
+  --shadow-x: 0px;
+  --shadow-y: 2px;
+  --shadow-blur: 0px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0;
+  --shadow-color: rgba(29,161,242,0.15);
+  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
 
-        /* Contenedor del Login - Fondo Azul Degradado OSCURO y PROFUNDO */
-        #loginContainer {
-            /* Gradiente Oscuro: Azul Marino Profundo a Índigo */
-            background: linear-gradient(135deg, #1f4068 0%, #2f61a1 100%); 
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
+            overflow: hidden;
+            color: var(--foreground);
         }
 
-
-        /* Estilos para el login */
-        .login-form {
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 40px;
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+        /* Contenedor principal */
+        .login-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 1000px;
+            display: flex;
+            background: var(--background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            min-height: 550px;
+            border: 1px solid var(--border);
+        }
+
+        /* Panel izquierdo - Información */
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--chart-1) 100%);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.03)"/></svg>');
+            background-size: cover;
+        }
+
+        .brand-content {
+            color: var(--primary-foreground);
+            z-index: 2;
+            position: relative;
             text-align: center;
-            backdrop-filter: blur(5px);
         }
 
-        .login-form h2 {
+        .brand-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .brand-subtitle {
+            font-size: 1.4rem;
+            color: var(--primary-foreground);
             margin-bottom: 30px;
-            color: #333;
-            font-size: 32px;
-            font-weight: 600;
+            font-weight: 500;
+            opacity: 0.9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Botón de Login - Azul Oscuro */
+        .platform-description {
+            font-size: 1.1rem;
+            color: var(--primary-foreground);
+            line-height: 1.6;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        /* Panel derecho - Acceso */
+        .right-panel {
+            flex: 0.8;
+            background: var(--card);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 1px solid var(--border);
+        }
+
+        .access-content {
+            text-align: center;
+        }
+
+        .access-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--chart-1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .access-icon i {
+            font-size: 35px;
+            color: var(--primary-foreground);
+        }
+
+        .access-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--card-foreground);
+            margin-bottom: 10px;
+        }
+
+        .access-subtitle {
+            color: var(--muted-foreground);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
         .btn {
-            background: var(--button-color); /* Usando el color azul oscuro */
-            color: white;
+            display: block;
+            width: 100%;
+            padding: 15px;
             border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: var(--radius);
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-            width: 100%;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            display: block; 
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .btn:hover {
-            background: #2f61a1; /* Un tono un poco más claro al hacer hover */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--chart-1) 100%);
+            color: var(--primary-foreground);
+            box-shadow: var(--shadow-sm);
         }
 
-        /* Estilos para la aplicación principal (después de ingresar) */
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .credit-section {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+        }
+
+        .credit-title {
+            color: var(--muted-foreground);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .developer {
+            color: var(--card-foreground);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Estilos para la aplicación principal - PANTALLA COMPLETA */
         .app-container {
             display: none;
-            min-height: 100vh;
-            background: #f0f4f8; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--background);
+            z-index: 1000;
         }
 
         .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            background: var(--card);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 1001;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 60px;
+            box-shadow: var(--shadow-sm);
         }
 
         .navbar-brand {
-            font-size: 24px;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: var(--button-color); 
+            color: var(--card-foreground);
             margin-right: 20px;
         }
 
         .navbar-links {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        /* Botones de Navegación - Azul Oscuro */
         .nav-btn {
-            background: var(--button-color); /* Azul oscuro */
-            color: white;
+            background: var(--primary);
+            color: var(--primary-foreground);
             border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 8px 15px;
+            border-radius: calc(var(--radius) - 0.5rem);
             cursor: pointer;
             font-weight: 600;
-            font-size: 15px;
-            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-            width: auto;
-            margin-bottom: 0; 
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-xs);
+            white-space: nowrap;
         }
         
         .nav-btn:hover {
-            background: #2f61a1; /* Tono más claro al hacer hover */
+            background: var(--chart-1);
             transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+            box-shadow: var(--shadow-sm);
         }
 
-        /* Botón de Logout - ROJO (Único color diferente) */
         .logout-btn {
-            background: var(--danger-color); /* ROJO */
-            color: white;
+            background: var(--destructive);
+            color: var(--destructive-foreground);
             border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
+            padding: 8px 15px;
+            border-radius: calc(var(--radius) - 0.5rem);
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.3s, transform 0.3s;
-            margin-left: 20px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            margin-left: 12px;
+            box-shadow: var(--shadow-xs);
+            font-size: 0.85rem;
         }
 
         .logout-btn:hover {
-            background: var(--danger-hover-color); /* Rojo más oscuro al hacer hover */
+            background: var(--destructive);
+            filter: brightness(0.9);
             transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+            box-shadow: var(--shadow-sm);
         }
 
         .main-content {
-            display: flex;
-            min-height: calc(100vh - 80px); 
+            height: calc(100vh - 60px);
+            width: 100%;
         }
 
         .content-area {
-            flex: 1;
+            height: 100%;
+            width: 100%;
             padding: 0;
-            background: #f0f4f8; 
-            position: relative;
+            background: var(--background);
         }
 
         .iframe-container {
             display: block;
             width: 100%;
             height: 100%;
-            position: relative;
         }
 
         .content-iframe {
             width: 100%;
-            height: calc(100vh - 80px); 
+            height: 100%;
             border: none;
+            display: block;
         }
 
-        /* Responsive Design */
+        /* Responsive para el texto del panel izquierdo */
+        @media (max-width: 1024px) {
+            .brand-title {
+                font-size: 2.4rem;
+            }
+            .brand-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
         @media (max-width: 900px) {
+            .brand-title {
+                font-size: 2.1rem;
+            }
+            .brand-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            
+            .left-panel, .right-panel {
+                padding: 40px 30px;
+            }
+            
+            .right-panel {
+                border-left: none;
+                border-top: 1px solid var(--border);
+            }
+            
+            .brand-title {
+                font-size: 2.3rem;
+            }
+            
+            .brand-subtitle {
+                font-size: 1.3rem;
+            }
+
             .navbar {
                 flex-direction: column;
-                align-items: flex-start;
+                height: auto;
+                padding: 10px;
             }
-
+            
             .navbar-brand {
                 margin-bottom: 10px;
+                margin-right: 0;
             }
-
+            
             .navbar-links {
                 flex-wrap: wrap;
+                justify-content: center;
             }
-
+            
+            .nav-btn, .logout-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
             .logout-btn {
                 margin-left: 0;
-                margin-top: 10px;
+                margin-top: 8px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .brand-title {
+                font-size: 2rem;
+            }
+            .brand-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .left-panel, .right-panel {
+                padding: 30px 20px;
+            }
+            
+            .brand-title {
+                font-size: 1.8rem;
+            }
+            
+            .brand-subtitle {
+                font-size: 1rem;
+            }
+            
+            .navbar-links {
+                gap: 5px;
+            }
+            
+            .nav-btn {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .brand-title {
+                font-size: 1.6rem;
+            }
+            .brand-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .brand-title {
+                font-size: 1.4rem;
+            }
+            .brand-subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .navbar-links {
+                flex-direction: column;
                 width: 100%;
             }
             
-            .nav-btn {
-                width: calc(33% - 10px); 
+            .nav-btn, .logout-btn {
+                width: 100%;
+                margin: 2px 0;
             }
         }
-        
-        @media (max-width: 600px) {
-            .nav-btn {
-                width: 100%; 
-            }
-        }
-        
-        .credit-message {
-            margin-top: 20px;
-            color: #666;
-            font-size: 12px;
-        }
-
     </style>
 </head>
 <body>
+    <!-- Contenedor de Login -->
     <div id="loginContainer" class="login-container">
-        <div class="login-form">
-            <h2>Operador Defensoria 6</h2>
-            <button class="btn" id="ingresarBtn" onclick="showAppAfterLogin()">Ingresar al Sistema</button>
-            <div class="credit-message">Diseño y programación de:</div>
-            Rómulo Fioravante. Leg. 2481. Año 2025
+        <!-- Panel izquierdo - Información -->
+        <div class="left-panel">
+            <div class="brand-content">
+                <h3 class="brand-title">Sistema Digital</h3>
+                <h2 class="brand-subtitle">Operador Defensoria Civil y Comercial 6</h2>
+                <p class="platform-description">Plataforma digital para atención al público. Registro de pase diario de expedientes.</p>
+            </div>
+        </div>
+
+        <!-- Panel derecho - Acceso -->
+        <div class="right-panel">
+            <div class="access-content">
+                <div class="access-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2 class="access-title">Acceso al Sistema</h2>
+                <p class="access-subtitle">Operadores autorizados</p>
+                
+                <button class="btn btn-primary" id="ingresarBtn" onclick="showAppAfterLogin()">
+                    <i class="fas fa-sign-in-alt"></i> Ingresar al Sistema
+                </button>
+                
+                <div class="credit-section">
+                    <div class="credit-title">Desarrollado por:</div>
+                    <div class="developer">Rómulo Fioravante - Leg. 2481 - 2025</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Contenedor de la Aplicación - PANTALLA COMPLETA -->
     <div id="appContainer" class="app-container">
         <nav class="navbar">
-            <div class="navbar-brand">Sistema Defensoría Civil y Comercial 6</div>
+            <div class="navbar-brand">Defensoría Civil y Comercial 6</div>
             
             <div class="navbar-links">
                 <button class="nav-btn" id="btnAtencionPublico" onclick="loadAtencionPublico()">
-                    Atención al Público
+                    <i class="fas fa-users"></i> Atención al Público
                 </button>
                 <button class="nav-btn" onclick="loadRegistroArt583()">
-                    Registro Art 583 CCyC
+                    <i class="fas fa-file-contract"></i> Registro Art 583
                 </button>
                 <button class="nav-btn" onclick="loadPaseCausas()">
-                    Pase de Causas
+                    <i class="fas fa-exchange-alt"></i> Pase de Causas
                 </button>
-                <button class="logout-btn" onclick="showLogin()">Cerrar</button>
+                <button class="logout-btn" onclick="showLogin()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
             </div>
         </nav>
 
@@ -256,9 +544,9 @@
 
     <script>
         // URLs definidas
-        const URL_ATENCION_PUBLICO = 'https://defensoria6.github.io/atencion-publico/';
-        const URL_REGISTRO_583 = 'https://defensoria6.github.io/583ccyc/';
-        const URL_PASE_CAUSAS = 'https://defensorialocal-seis.github.io/pases/';
+        const URL_ATENCION_PUBLICO = 'https://sistemadigital.github.io/operador/atencion-publico.html';
+        const URL_REGISTRO_583 = 'https://sistemadigital.github.io/operador/583.html';
+        const URL_PASE_CAUSAS = 'https://sistemadigital.github.io/operador/pase.html';
         
         // Elementos de la interfaz
         const loginContainer = document.getElementById('loginContainer');
@@ -289,15 +577,20 @@
         
         // Funciones para la interfaz (Login/Logout)
         function showAppAfterLogin() {
+            // Ocultar el login y mostrar la aplicación en pantalla completa
             loginContainer.style.display = 'none';
             appContainer.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll en el body
+            
             // Cargar Atención al Público por defecto al ingresar
             loadAtencionPublico(); 
         }
 
         function showLogin() {
+            // Mostrar el login y ocultar la aplicación
             loginContainer.style.display = 'flex';
             appContainer.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaurar scroll en el body
             contentIframe.src = ''; // Limpiar el iframe al cerrar sesión
         }
 
@@ -310,7 +603,6 @@
                 }
             });
         });
-        
     </script>
 </body>
 </html>
