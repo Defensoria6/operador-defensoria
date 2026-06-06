@@ -293,12 +293,44 @@
             white-space: nowrap;
         }
         
+        /* Efecto glass luminoso en hover para todos los botones */
         .nav-btn:hover {
-            background: var(--chart-1);
+            background: rgba(107, 114, 128, 0.3);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 12px rgba(255,255,255,0.5);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
+        /* Botón azul específico para Informe de Pases */
+        .nav-btn.btn-informe {
+            background: #1e40af; /* Azul oscuro */
+        }
+        .nav-btn.btn-informe:hover {
+            background: rgba(30, 64, 175, 0.6);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 12px rgba(59,130,246,0.6);
+        }
+
+        /* Estado desactivado (gris oscuro) para botones que no están activos */
+        .nav-btn:not(.active) {
+            background: #2d2d2d;
+            color: #aaa;
+            opacity: 0.7;
+        }
+        /* Restaurar color original solo al botón activo */
+        .nav-btn.active {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            opacity: 1;
+        }
+        /* Caso especial para el botón Informe de Pases cuando está activo */
+        .nav-btn.btn-informe.active {
+            background: #1e40af;
+            color: white;
+        }
+        /* Para que el botón de logout no se vea afectado por esta regla */
         .logout-btn {
             background: var(--destructive);
             color: var(--destructive-foreground);
@@ -312,12 +344,22 @@
             box-shadow: var(--shadow-xs);
             font-size: 0.85rem;
         }
-
         .logout-btn:hover {
             background: var(--destructive);
             filter: brightness(0.9);
             transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
+        }
+        /* Asegurar que el logout nunca se vea afectado por el estilo de los nav-btn */
+        .logout-btn:not(.active) {
+            background: var(--destructive) !important;
+            color: var(--destructive-foreground) !important;
+            opacity: 1 !important;
+        }
+
+        .logout-btn:hover {
+            background: var(--destructive) !important;
+            filter: brightness(0.9);
         }
 
         .main-content {
@@ -518,14 +560,18 @@
             <div class="navbar-brand">Defensoría Civil y Comercial 6</div>
             
             <div class="navbar-links">
-                <button class="nav-btn" id="btnAtencionPublico" onclick="loadAtencionPublico()">
+                <button class="nav-btn" id="btnAtencionPublico" onclick="setActiveButton(this); loadAtencionPublico()">
                     <i class="fas fa-users"></i> Atención al Público
                 </button>
-                <button class="nav-btn" onclick="loadRegistroArt583()">
+                <button class="nav-btn" onclick="setActiveButton(this); loadRegistroArt583()">
                     <i class="fas fa-file-contract"></i> Registro Art 583
                 </button>
-                <button class="nav-btn" onclick="loadPaseCausas()">
+                <button class="nav-btn" onclick="setActiveButton(this); loadPaseCausas()">
                     <i class="fas fa-exchange-alt"></i> Pase de Causas
+                </button>
+                <!-- Nuevo botón Informe de Pases con fondo azul -->
+                <button class="nav-btn btn-informe" onclick="setActiveButton(this); loadInformePases()">
+                    <i class="fas fa-chart-line"></i> Informe de Pases
                 </button>
                 <button class="logout-btn" onclick="showLogin()">
                     <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
@@ -547,6 +593,7 @@
         const URL_ATENCION_PUBLICO = 'https://sistemadigital.github.io/operador/atencion-publico.html';
         const URL_REGISTRO_583 = 'https://sistemadigital.github.io/operador/583.html';
         const URL_PASE_CAUSAS = 'https://sistemadigital.github.io/operador/pase.html';
+        const URL_INFORME_PASES = 'https://sistemadigital.github.io/operador/pase-informe'; // Nueva URL
         
         // Elementos de la interfaz
         const loginContainer = document.getElementById('loginContainer');
@@ -574,14 +621,35 @@
         function loadPaseCausas() {
             loadPage(URL_PASE_CAUSAS);
         }
+
+        function loadInformePases() {
+            loadPage(URL_INFORME_PASES);
+        }
         
-        // Funciones para la interfaz (Login/Logout)
+        // Función para manejar el estado activo de los botones
+        function setActiveButton(activeBtn) {
+            // Seleccionar todos los botones que tienen la clase 'nav-btn' (excluyendo logout)
+            const allNavBtns = document.querySelectorAll('.nav-btn');
+            // Remover la clase 'active' de todos ellos
+            allNavBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Agregar la clase 'active' al botón clickeado
+            activeBtn.classList.add('active');
+        }
+
+        // Función para la entrada al sistema (login)
         function showAppAfterLogin() {
             // Ocultar el login y mostrar la aplicación en pantalla completa
             loginContainer.style.display = 'none';
             appContainer.style.display = 'block';
             document.body.style.overflow = 'hidden'; // Prevenir scroll en el body
             
+            // Establecer el botón "Atención al Público" como activo por defecto
+            const defaultBtn = document.getElementById('btnAtencionPublico');
+            if (defaultBtn) {
+                setActiveButton(defaultBtn);
+            }
             // Cargar Atención al Público por defecto al ingresar
             loadAtencionPublico(); 
         }
@@ -592,6 +660,9 @@
             appContainer.style.display = 'none';
             document.body.style.overflow = 'auto'; // Restaurar scroll en el body
             contentIframe.src = ''; // Limpiar el iframe al cerrar sesión
+            // Limpiar el estado activo de los botones para la próxima sesión
+            const allNavBtns = document.querySelectorAll('.nav-btn');
+            allNavBtns.forEach(btn => btn.classList.remove('active'));
         }
 
         // Event listener para ingresar con la tecla Enter
